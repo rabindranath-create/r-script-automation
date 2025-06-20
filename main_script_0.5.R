@@ -14,7 +14,7 @@ results <- data.frame(
   NumDisambigs = integer()
 )
 
-lambda <- 0
+lambda <- 0.5
 
 for (i in 1:50) {
   set.seed(i)
@@ -30,4 +30,4 @@ for (i in 1:50) {
   )
 }
 
-saveRDS(results, file = "data_lambda_0.rds")
+saveRDS(results, file = "data_lambda_0_5.rds")
