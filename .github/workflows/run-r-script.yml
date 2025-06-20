@@ -30,8 +30,8 @@ jobs:
           echo "Listing all files:"
           find . -type f
 
-    - name: Upload all .rds files
-      uses: actions/upload-artifact@v4
-      with:
-        name: all-rds-results
-        path: '*.rds'
+      - name: Upload all .rds files
+        uses: actions/upload-artifact@v4
+        with:
+          name: all-rds-results
+          path: '*.rds'
