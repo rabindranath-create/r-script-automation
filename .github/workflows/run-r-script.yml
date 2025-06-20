@@ -22,15 +22,16 @@ jobs:
 
       - name: Run the main R script
         run: |
-          Rscript main_script.R
+          Rscript main_script_0_5.R
+          Rscript main_script_1.R
 
       - name: List files after running script
         run: |
           echo "Listing all files:"
           find . -type f
 
-      - name: Upload result as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: results-rds
-          path: data_lambda_0.rds
+    - name: Upload all .rds files
+      uses: actions/upload-artifact@v4
+      with:
+        name: all-rds-results
+        path: '*.rds'
