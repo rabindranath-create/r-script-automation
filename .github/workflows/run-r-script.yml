@@ -2,8 +2,8 @@ name: Run R Script
 
 on:
   schedule:
-    - cron: '0 12 * * *'   # daily at 12:00 UTC
-  workflow_dispatch:        # allows manual trigger
+    - cron: '0 12 * * *'   # Runs daily at 12:00 UTC
+  workflow_dispatch:        # Allows manual trigger from Actions tab
 
 jobs:
   run-r:
@@ -18,10 +18,16 @@ jobs:
 
       - name: Install R package dependencies
         run: |
-          Rscript -e 'install.packages(c("dplyr", "spatial", "spatstat", "igraph"), repos = "https://cloud.r-project.org")'
-      
+          Rscript -e 'install.packages(c("spatial", "spatstat", "igraph", "dplyr"), repos = "https://cloud.r-project.org")'
+
       - name: Run the main R script
-        run: Rscript main_script.R
+        run: |
+          Rscript main_script.R
+
+      - name: List files after running script
+        run: |
+          echo "Listing all files:"
+          find . -type f
 
       - name: Upload result as artifact
         uses: actions/upload-artifact@v4
