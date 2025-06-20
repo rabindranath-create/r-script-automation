@@ -1,15 +1,11 @@
-library("rstudioapi") # Load rstudioapi package
-setwd(dirname(getActiveDocumentContext()$path)) # Set working directory to source file location
-getwd() # Check updated working directory
+# main_script.R
 
+# Make sure working directory is the same as the script location (implicitly handled in GitHub Actions)
+print(getwd())
 
-source("RD_and_DT_Algorithm_copy.R")
-#source("RD_and_DT_Algorithm_copy.R")
+# Load the helper script
+source("RD_and_DT_Algorithm_copy.R")  # Ensure this file is in the same directory
 
-
-#Clutter_gen <- Clutter_gen(0.5, 3, 20)
-
-#RD------------------------- 
 results <- data.frame(
   Run = integer(),
   Lambda = numeric(),
@@ -18,7 +14,7 @@ results <- data.frame(
   NumDisambigs = integer()
 )
 
-lambda = 0
+lambda <- 0
 
 for (i in 1:50) {
   set.seed(i)
