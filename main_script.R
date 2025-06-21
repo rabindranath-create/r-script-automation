@@ -59,7 +59,7 @@ for (i in 1:100) {
   )
 }
 
-saveRDS(results_0_5, file = "data_25_1_05.rds")
+saveRDS(results_05, file = "data_25_1_05.rds")
 
 
 
@@ -147,6 +147,7 @@ for (i in 1:100) {
 saveRDS(results_2, file = "data_25_1_2.rds")
 
 
+
 results_25 <- data.frame(
   Run = integer(),
   Lambda = numeric(),
@@ -204,7 +205,8 @@ for (i in 1:100) {
 saveRDS(results_3, file = "data_25_1_3.rds")
 
 
-results_25 <- data.frame(
+
+results_35 <- data.frame(
   Run = integer(),
   Lambda = numeric(),
   Length = numeric(),
