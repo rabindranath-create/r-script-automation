@@ -22,8 +22,7 @@ jobs:
 
       - name: Run the main R script
         run: |
-          Rscript main_script_0_5.R
-          Rscript main_script_1.R
+          Rscript main_script.R
 
       - name: List files after running script
         run: |
