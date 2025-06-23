@@ -239,7 +239,7 @@ Obstacle_gen <- function(gamma, d, noPoints, lambda){
                             'prob'=prob, 'status'=status)
 }
 # 9. create obstacle function - mixed case
-Mix_gen <- function(gamma, d, noPoints, no_c, no_o, lambda){
+Mix_gen <- function(gamma, d, noPoints, no_c, no_o, lambda, cost){
   bgwin <- owin(c(10, 90),c(10, 90))
   kappa <- noPoints / (80*80)
   mypar <- list(beta = kappa, gamma = gamma, r = d) # r is the radius
@@ -251,7 +251,7 @@ Mix_gen <- function(gamma, d, noPoints, no_c, no_o, lambda){
   ind <- sample(1:length(mypp$x),ceiling(length(mypp$x)*(no_c/noPoints)))
   prob[ind] <- rbeta(length(ind),4 -lambda,4 + lambda)
   status[ind] <- rep(0,length(ind))
-  example_obs <- data.frame('x'=mypp$x, 'y'=mypp$y, 'cost'=rep(5,length(mypp$x)), 
+  example_obs <- data.frame('x'=mypp$x, 'y'=mypp$y, 'cost'=rep(cost,length(mypp$x)), 
                             'prob'=prob, 'status'=status)
 }
 
@@ -1218,7 +1218,7 @@ AP_Alg_M <- function(obs_gen_para, lambda ){
 
 
 #Main algorithm - ACS 
-Update_graph_intersect_ACS<-function(g,x,y,circle_info,r, k){
+Update_graph_intersect_ACS<-function(g,x,y,circle_info,r, kei){
   #read circle center x,y coordinate c-cost,p-prabability,True or False Obstacles
   #circles=read.csv("example1.csv",header=FALSE)
   n <- nrow(circle_info)
@@ -1233,7 +1233,7 @@ Update_graph_intersect_ACS<-function(g,x,y,circle_info,r, k){
     for(j in 1:n1){
       index=which((elg[,1]==el[j,1] & elg[,2]==el[j,2]))
       #elg[index,3] <- elg[index,3]+0.5*circle_info[i,3]/(1-circle_info[i,4])
-      elg[index,3] <- elg[index,3]+0.5*( circle_info[i,3] + ( 1-circle_info[i,4])^(-k) ) 
+      elg[index,3] <- elg[index,3]+0.5*( circle_info[i,3] + ( 1-circle_info[i,4])^(-kei) ) 
       int_info[index, i] <- 1
     }#inner loop
   }#outer loop
@@ -1247,7 +1247,7 @@ Update_graph_intersect_ACS<-function(g,x,y,circle_info,r, k){
 
 
 # 2. RD algorithm - input is the parameters of obstacle pattern (for clutter only)
-ACS_Alg_C <- function(obs_gen_para, k, lambda){
+ACS_Alg_C <- function(obs_gen_para, kei, lambda){
   # generate obstacle info
   obs_info <- Clutter_gen(obs_gen_para[1],obs_gen_para[2],obs_gen_para[3], lambda)
   x <- 100; y <- 100; r <- 4.5
@@ -1257,7 +1257,7 @@ ACS_Alg_C <- function(obs_gen_para, k, lambda){
   # create graph
   vertice_list <- Lattice_Vertices(x,y)
   G_original <- Graph_Discretized(x,y)
-  output_Ginfo <- Update_graph_intersect_ACS(G_original, x, y, obs_info, r, k)
+  output_Ginfo <- Update_graph_intersect_ACS(G_original, x, y, obs_info, r, kei)
   G_ed <- output_Ginfo$G_info
   Int_info <- output_Ginfo$Int_info
   df_edge_ed <- as_data_frame(G_ed, what="edges")
@@ -1311,7 +1311,7 @@ ACS_Alg_C <- function(obs_gen_para, k, lambda){
         } else{
           # adjust based on false obstacle
           df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp]==1),3]-
-            0.5*( obs_info[obs_ind_temp,3] + ( 1-obs_info[obs_ind_temp,4])^(-k) )
+            0.5*( obs_info[obs_ind_temp,3] + ( 1-obs_info[obs_ind_temp,4])^(-kei) )
             #0.5*obs_info[obs_ind_temp,3]/(1-obs_info[obs_ind_temp,4])
           Int_info[which(Int_info[,obs_ind_temp]==1),obs_ind_temp] <- 0 
         }
@@ -1329,7 +1329,7 @@ ACS_Alg_C <- function(obs_gen_para, k, lambda){
         } else{
           # false obstacle
           df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3]-
-            0.5*( obs_info[obs_ind_temp,3] + ( 1-obs_info[obs_ind_temp,4])^(-k) )
+            0.5*( obs_info[obs_ind_temp,3] + ( 1-obs_info[obs_ind_temp,4])^(-kei) )
           Int_info[which(Int_info[,obs_ind_temp2]==1),obs_ind_temp2] <- 0
         }
       }
@@ -1341,7 +1341,7 @@ ACS_Alg_C <- function(obs_gen_para, k, lambda){
 }
 
 # 3. RD algorithm - input is the parameters of obstacle pattern (for obstacle only)
-ACS_Alg_O <- function(obs_gen_para, k, lambda){
+ACS_Alg_O <- function(obs_gen_para, kei, lambda){
   # generate obstacle info
   obs_info <- Obstacle_gen(obs_gen_para[1],obs_gen_para[2],obs_gen_para[3], lambda)
   x <- 100; y <- 100; r <- 4.5
@@ -1351,7 +1351,7 @@ ACS_Alg_O <- function(obs_gen_para, k, lambda){
   # create graph
   vertice_list <- Lattice_Vertices(x,y)
   G_original <- Graph_Discretized(x,y)
-  output_Ginfo <- Update_graph_intersect_ACS(G_original, x, y, obs_info, r, k)
+  output_Ginfo <- Update_graph_intersect_ACS(G_original, x, y, obs_info, r, kei)
   G_ed <- output_Ginfo$G_info
   Int_info <- output_Ginfo$Int_info
   df_edge_ed <- as_data_frame(G_ed, what="edges")
@@ -1405,7 +1405,7 @@ ACS_Alg_O <- function(obs_gen_para, k, lambda){
         } else{
           # adjust based on false obstacle
           df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp]==1),3]-
-            0.5*( obs_info[obs_ind_temp,3] + ( 1-obs_info[obs_ind_temp,4])^(-k) )
+            0.5*( obs_info[obs_ind_temp,3] + ( 1-obs_info[obs_ind_temp,4])^(-kei) )
           Int_info[which(Int_info[,obs_ind_temp]==1),obs_ind_temp] <- 0 
         }
       } else{
@@ -1422,7 +1422,7 @@ ACS_Alg_O <- function(obs_gen_para, k, lambda){
         } else{
           # false obstacle
           df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3]-
-            0.5*( obs_info[obs_ind_temp,3] + ( 1-obs_info[obs_ind_temp,4])^(-k) )
+            0.5*( obs_info[obs_ind_temp,3] + ( 1-obs_info[obs_ind_temp,4])^(-kei) )
           Int_info[which(Int_info[,obs_ind_temp2]==1),obs_ind_temp2] <- 0
         }
       }
@@ -1433,7 +1433,7 @@ ACS_Alg_O <- function(obs_gen_para, k, lambda){
   return(output_final)
 }
 # 4. RD algorithm - input is the parameters of obstacle pattern (for mixed case)
-ACS_Alg_M <- function(obs_gen_para, k, lambda){
+ACS_Alg_M <- function(obs_gen_para, kei, lambda){
   # generate obstacle info
   obs_info <- Mix_gen(obs_gen_para[1],obs_gen_para[2],obs_gen_para[3],obs_gen_para[4],obs_gen_para[5], lambda)
   x <- 100; y <- 100; r <- 4.5
@@ -1443,7 +1443,7 @@ ACS_Alg_M <- function(obs_gen_para, k, lambda){
   # create graph
   vertice_list <- Lattice_Vertices(x,y)
   G_original <- Graph_Discretized(x,y)
-  output_Ginfo <- Update_graph_intersect_ACS(G_original, x, y, obs_info, r, k)
+  output_Ginfo <- Update_graph_intersect_ACS(G_original, x, y, obs_info, r, kei)
   G_ed <- output_Ginfo$G_info
   Int_info <- output_Ginfo$Int_info
   df_edge_ed <- as_data_frame(G_ed, what="edges")
@@ -1497,7 +1497,7 @@ ACS_Alg_M <- function(obs_gen_para, k, lambda){
         } else{
           # adjust based on false obstacle
           df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp]==1),3]-
-            0.5*( obs_info[obs_ind_temp,3] + ( 1-obs_info[obs_ind_temp,4])^(-k) )
+            0.5*( obs_info[obs_ind_temp,3] + ( 1-obs_info[obs_ind_temp,4])^(-kei) )
           Int_info[which(Int_info[,obs_ind_temp]==1),obs_ind_temp] <- 0 
         }
       } else{
@@ -1514,7 +1514,7 @@ ACS_Alg_M <- function(obs_gen_para, k, lambda){
         } else{
           # false obstacle
           df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3]-
-            0.5*( obs_info[obs_ind_temp,3] + ( 1-obs_info[obs_ind_temp,4])^(-k) )
+            0.5*( obs_info[obs_ind_temp,3] + ( 1-obs_info[obs_ind_temp,4])^(-kei) )
           Int_info[which(Int_info[,obs_ind_temp2]==1),obs_ind_temp2] <- 0
         }
       }
