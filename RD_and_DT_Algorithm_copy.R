@@ -370,7 +370,7 @@ RD_Alg_C <- function(obs_gen_para, lambda){
           df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- Inf
         } else{
           # adjust based on false obstacle
-          df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp]==1),3]-
+          df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp]==1),3]+
             0.5*obs_info[obs_ind_temp,3]/(1-obs_info[obs_ind_temp,4])
           Int_info[which(Int_info[,obs_ind_temp]==1),obs_ind_temp] <- 0 
         }
@@ -387,7 +387,7 @@ RD_Alg_C <- function(obs_gen_para, lambda){
           df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- Inf
         } else{
           # false obstacle
-          df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3]-
+          df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3]+
             0.5*obs_info[obs_ind_temp2,3]/(1-obs_info[obs_ind_temp2,4])
           Int_info[which(Int_info[,obs_ind_temp2]==1),obs_ind_temp2] <- 0
         }
@@ -463,7 +463,7 @@ RD_Alg_O <- function(obs_gen_para, lambda){
           df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- Inf
         } else{
           # adjust based on false obstacle
-          df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp]==1),3]-
+          df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp]==1),3]+
             0.5*obs_info[obs_ind_temp,3]/(1-obs_info[obs_ind_temp,4])
           Int_info[which(Int_info[,obs_ind_temp]==1),obs_ind_temp] <- 0 
         }
@@ -480,7 +480,7 @@ RD_Alg_O <- function(obs_gen_para, lambda){
           df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- Inf
         } else{
           # false obstacle
-          df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3]-
+          df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3]+
             0.5*obs_info[obs_ind_temp2,3]/(1-obs_info[obs_ind_temp2,4])
           Int_info[which(Int_info[,obs_ind_temp2]==1),obs_ind_temp2] <- 0
         }
@@ -555,7 +555,7 @@ RD_Alg_M <- function(obs_gen_para, lambda){
           df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- Inf
         } else{
           # adjust based on false obstacle
-          df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp]==1),3]-
+          df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp]==1),3]+
             0.5*obs_info[obs_ind_temp,3]/(1-obs_info[obs_ind_temp,4])
           Int_info[which(Int_info[,obs_ind_temp]==1),obs_ind_temp] <- 0 
         }
@@ -572,7 +572,7 @@ RD_Alg_M <- function(obs_gen_para, lambda){
           df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- Inf
         } else{
           # false obstacle
-          df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3]-
+          df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3]+
             0.5*obs_info[obs_ind_temp2,3]/(1-obs_info[obs_ind_temp2,4])
           Int_info[which(Int_info[,obs_ind_temp2]==1),obs_ind_temp2] <- 0
         }
@@ -679,7 +679,7 @@ DT_Alg_C <- function(obs_gen_para, lambda){
         } else{
           dt <- Dist_Euclidean(as.numeric(obs_info[obs_ind_temp,1:2]),c(50,1))
           # adjust based on false obstacle
-          df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp]==1),3]-
+          df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp]==1),3]+
             0.5*(obs_info[obs_ind_temp,3]+(dt/(1-obs_info[obs_ind_temp,4]))^(-log(1-obs_info[obs_ind_temp,4])))
           Int_info[which(Int_info[,obs_ind_temp]==1),obs_ind_temp] <- 0 
         }
@@ -697,7 +697,7 @@ DT_Alg_C <- function(obs_gen_para, lambda){
         } else{
           dt <- Dist_Euclidean(as.numeric(obs_info[obs_ind_temp2,1:2]),c(50,1))
           # false obstacle
-          df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3]-
+          df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3]+
             0.5*(obs_info[obs_ind_temp2,3]+(dt/(1-obs_info[obs_ind_temp2,4]))^(-log(1-obs_info[obs_ind_temp2,4])))
           Int_info[which(Int_info[,obs_ind_temp2]==1),obs_ind_temp2] <- 0
         }
@@ -772,7 +772,7 @@ DT_Alg_O <- function(obs_gen_para, lambda){
         } else{
           dt <- Dist_Euclidean(as.numeric(obs_info[obs_ind_temp,1:2]),c(50,1))
           # adjust based on false obstacle
-          df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp]==1),3]-
+          df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp]==1),3]+
             0.5*(obs_info[obs_ind_temp,3]+(dt/(1-obs_info[obs_ind_temp,4]))^(-log(1-obs_info[obs_ind_temp,4])))
           Int_info[which(Int_info[,obs_ind_temp]==1),obs_ind_temp] <- 0 
         }
@@ -790,7 +790,7 @@ DT_Alg_O <- function(obs_gen_para, lambda){
         } else{
           dt <- Dist_Euclidean(as.numeric(obs_info[obs_ind_temp2,1:2]),c(50,1))
           # false obstacle
-          df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3]-
+          df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3]+
             0.5*(obs_info[obs_ind_temp2,3]+(dt/(1-obs_info[obs_ind_temp2,4]))^(-log(1-obs_info[obs_ind_temp2,4])))
           Int_info[which(Int_info[,obs_ind_temp2]==1),obs_ind_temp2] <- 0
         }
@@ -865,7 +865,7 @@ DT_Alg_M <- function(obs_gen_para, lambda){
         } else{
           dt <- Dist_Euclidean(as.numeric(obs_info[obs_ind_temp,1:2]),c(50,1))
           # adjust based on false obstacle
-          df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp]==1),3]-
+          df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp]==1),3]+
             0.5*(obs_info[obs_ind_temp,3]+(dt/(1-obs_info[obs_ind_temp,4]))^(-log(1-obs_info[obs_ind_temp,4])))
           Int_info[which(Int_info[,obs_ind_temp]==1),obs_ind_temp] <- 0 
         }
@@ -883,7 +883,7 @@ DT_Alg_M <- function(obs_gen_para, lambda){
         } else{
           dt <- Dist_Euclidean(as.numeric(obs_info[obs_ind_temp2,1:2]),c(50,1))
           # false obstacle
-          df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3]-
+          df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3]+
             0.5*(obs_info[obs_ind_temp2,3]+(dt/(1-obs_info[obs_ind_temp2,4]))^(-log(1-obs_info[obs_ind_temp2,4])))
           Int_info[which(Int_info[,obs_ind_temp2]==1),obs_ind_temp2] <- 0
         }
@@ -989,7 +989,7 @@ AP_Alg_C <- function(obs_gen_para, lambda){
           df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- Inf
         } else{
           # adjust based on false obstacle
-          df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp]==1),3]-
+          df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp]==1),3]+
             0.5*(obs_info[obs_ind_temp,3] + ( 5*obs_info[obs_ind_temp,4]/ (1-(obs_info[obs_ind_temp,4])^(1-obs_info[obs_ind_temp,4])))) 
             #0.5*(obs_info[obs_ind_temp,3] + (1-obs_info[obs_ind_temp,4]) )
           Int_info[which(Int_info[,obs_ind_temp]==1),obs_ind_temp] <- 0 
@@ -1007,7 +1007,7 @@ AP_Alg_C <- function(obs_gen_para, lambda){
           df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- Inf
         } else{
           # false obstacle
-          df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3]-
+          df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3]+
             0.5*(obs_info[obs_ind_temp,3] + ( 5*obs_info[obs_ind_temp,4]/ (1-(obs_info[obs_ind_temp,4])^(1-obs_info[obs_ind_temp,4])))) 
           Int_info[which(Int_info[,obs_ind_temp2]==1),obs_ind_temp2] <- 0
         }
@@ -1083,7 +1083,7 @@ AP_Alg_O <- function(obs_gen_para, lambda){
           df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- Inf
         } else{
           # adjust based on false obstacle
-          df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp]==1),3]-
+          df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp]==1),3]+
             0.5*(obs_info[obs_ind_temp,3] + ( 5*obs_info[obs_ind_temp,4]/ (1-(obs_info[obs_ind_temp,4])^(1-obs_info[obs_ind_temp,4])))) 
           Int_info[which(Int_info[,obs_ind_temp]==1),obs_ind_temp] <- 0 
         }
@@ -1100,7 +1100,7 @@ AP_Alg_O <- function(obs_gen_para, lambda){
           df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- Inf
         } else{
           # false obstacle
-          df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3]-
+          df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3]+
             0.5*(obs_info[obs_ind_temp,3] + ( 5*obs_info[obs_ind_temp,4]/ (1-(obs_info[obs_ind_temp,4])^(1-obs_info[obs_ind_temp,4])))) 
           Int_info[which(Int_info[,obs_ind_temp2]==1),obs_ind_temp2] <- 0
         }
@@ -1175,7 +1175,7 @@ AP_Alg_M <- function(obs_gen_para, lambda ){
           df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- Inf
         } else{
           # adjust based on false obstacle
-          df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp]==1),3]-
+          df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp]==1),3]+
             0.5*(obs_info[obs_ind_temp,3] + ( 5*obs_info[obs_ind_temp,4]/ (1-(obs_info[obs_ind_temp,4])^(1-obs_info[obs_ind_temp,4])))) 
           Int_info[which(Int_info[,obs_ind_temp]==1),obs_ind_temp] <- 0 
         }
@@ -1192,7 +1192,7 @@ AP_Alg_M <- function(obs_gen_para, lambda ){
           df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- Inf
         } else{
           # false obstacle
-          df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3]-
+          df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3]+
             0.5*(obs_info[obs_ind_temp,3] + ( 5*obs_info[obs_ind_temp,4]/ (1-(obs_info[obs_ind_temp,4])^(1-obs_info[obs_ind_temp,4])))) 
           Int_info[which(Int_info[,obs_ind_temp2]==1),obs_ind_temp2] <- 0
         }
@@ -1233,7 +1233,7 @@ Update_graph_intersect_ACS<-function(g,x,y,circle_info,r, kei){
     for(j in 1:n1){
       index=which((elg[,1]==el[j,1] & elg[,2]==el[j,2]))
       #elg[index,3] <- elg[index,3]+0.5*circle_info[i,3]/(1-circle_info[i,4])
-      elg[index,3] <- elg[index,3]+0.5*( circle_info[i,3] + ( 1-circle_info[i,4])^(-kei) ) 
+      elg[index,3] <- elg[index,3]+0.5*( circle_info[i,3] + (1 - circle_info[i,4])^(-kei) ) 
       int_info[index, i] <- 1
     }#inner loop
   }#outer loop
@@ -1310,7 +1310,7 @@ ACS_Alg_C <- function(obs_gen_para, kei, lambda){
           df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- Inf
         } else{
           # adjust based on false obstacle
-          df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp]==1),3]-
+          df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp]==1),3]+
             0.5*( obs_info[obs_ind_temp,3] + ( 1-obs_info[obs_ind_temp,4])^(-kei) )
             #0.5*obs_info[obs_ind_temp,3]/(1-obs_info[obs_ind_temp,4])
           Int_info[which(Int_info[,obs_ind_temp]==1),obs_ind_temp] <- 0 
@@ -1328,7 +1328,7 @@ ACS_Alg_C <- function(obs_gen_para, kei, lambda){
           df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- Inf
         } else{
           # false obstacle
-          df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3]-
+          df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3]+
             0.5*( obs_info[obs_ind_temp,3] + ( 1-obs_info[obs_ind_temp,4])^(-kei) )
           Int_info[which(Int_info[,obs_ind_temp2]==1),obs_ind_temp2] <- 0
         }
@@ -1404,7 +1404,7 @@ ACS_Alg_O <- function(obs_gen_para, kei, lambda){
           df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- Inf
         } else{
           # adjust based on false obstacle
-          df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp]==1),3]-
+          df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp]==1),3]+
             0.5*( obs_info[obs_ind_temp,3] + ( 1-obs_info[obs_ind_temp,4])^(-kei) )
           Int_info[which(Int_info[,obs_ind_temp]==1),obs_ind_temp] <- 0 
         }
@@ -1421,7 +1421,7 @@ ACS_Alg_O <- function(obs_gen_para, kei, lambda){
           df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- Inf
         } else{
           # false obstacle
-          df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3]-
+          df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3]+
             0.5*( obs_info[obs_ind_temp,3] + ( 1-obs_info[obs_ind_temp,4])^(-kei) )
           Int_info[which(Int_info[,obs_ind_temp2]==1),obs_ind_temp2] <- 0
         }
@@ -1496,7 +1496,7 @@ ACS_Alg_M <- function(obs_gen_para, kei, lambda){
           df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- Inf
         } else{
           # adjust based on false obstacle
-          df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp]==1),3]-
+          df_edge_ed[which(Int_info[,obs_ind_temp]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp]==1),3]+
             0.5*( obs_info[obs_ind_temp,3] + ( 1-obs_info[obs_ind_temp,4])^(-kei) )
           Int_info[which(Int_info[,obs_ind_temp]==1),obs_ind_temp] <- 0 
         }
@@ -1513,7 +1513,7 @@ ACS_Alg_M <- function(obs_gen_para, kei, lambda){
           df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- Inf
         } else{
           # false obstacle
-          df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3]-
+          df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3] <- df_edge_ed[which(Int_info[,obs_ind_temp2]==1),3]+
             0.5*( obs_info[obs_ind_temp,3] + ( 1-obs_info[obs_ind_temp,4])^(-kei) )
           Int_info[which(Int_info[,obs_ind_temp2]==1),obs_ind_temp2] <- 0
         }
